@@ -48,3 +48,102 @@ The following constants are currently defined:
 - `VON_KLITZING_CONSTANT` : The Von Klitzing constant in Ω
 - `STANDARD_GRAVITY_ACCELERATION` : The standard acceleration of gravity in m.s⁻²
 - `SPEED_OF_LIGHT` : The speed of light in vacuum in m.s⁻¹
+
+
+## unit conversion
+
+Unit conversion can be performed using the `units` module:
+
+```rust
+use science_kit::constants::{RYDBERG_CONSTANT};
+use science_kit::units;
+
+fn main() {
+    let rydberg_m: f64 = RYDBERG_CONSTANT;
+    let rydberg_nm: f64 = units::convert_length(RYDBERG_CONSTANT, units::Length::Meter, -1.0, units::Length::Nanometer);
+
+    println!("The Rydberg constant is {} m⁻¹ or {} nm⁻¹", rydberg_m, rydberg_nm);
+}
+```
+
+The conversion functions take (in this order) the value itself, the old unit, the exponent of the unit, and the new unit.
+
+The following units can be used:
+
+### `units::Time`
+
+- `Picosecond`
+- `Nanosecond`
+- `Microsecond`
+- `Millisecond`
+- `Second`
+- `Kilosecond`
+- `Minute`
+- `Hour`
+- `Day`
+- `SideralDay`
+- `Week`
+- `Year`
+- `TropicalYear`
+- `SideralYear`
+
+### `units::Length`
+
+- `Kilometer`
+- `Meter`
+- `Centimeter`
+- `Millimeter`
+- `Micrometer`
+- `Nanometer`
+- `Angstrom`
+- `Miles`
+- `Yard`
+- `Feet`
+- `Inch`
+- `NauticalMiles`
+
+
+### `units::Energy`
+
+- `Joule`
+- `Kilojoule`
+- `GramCalorie`
+- `Kilocalorie`
+- `WattHour`
+- `KilowattHour`
+- `Electronvolt`
+- `BritishThermalUnit`
+- `USTherm`
+- `FootPound`
+
+
+### `units:::Mass`
+
+- `Tonne`
+- `Kilogram`
+- `Gram`
+- `Milligram`
+- `Microgram`
+- `ImperialTon`
+- `USTon`
+- `Stone`
+- `Pound`
+- `Ounce`
+
+
+### `units::Angles`
+
+- `Turn`
+- `Arcsecond`
+- `Arcminute`
+- `Degree`
+- `Gradian`
+- `Radian`
+- `Milliradian`
+
+
+### `units::Temeperatures`
+
+- `Celsius`
+- `Farenheit`
+- `Kelvin`
