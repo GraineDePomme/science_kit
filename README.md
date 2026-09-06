@@ -147,3 +147,31 @@ The following units can be used:
 - `Celsius`
 - `Farenheit`
 - `Kelvin`
+
+
+## The `Measure` data type
+
+This library introduces a `Measure` data type, which is composed of a value and its uncertainty:
+
+``` rust
+pub struct Measure {
+    pub value: f64,
+    pub error: f64
+}
+```
+
+All the basic arithmetic operations are defined and the uncertainty spreads accordingly.
+
+``` rust
+use science_kit::measure::*;
+
+fn main() {
+    let a = Measure { value: 3.2, error: 0.2 };
+    let b = Measure { value: 8.1, error: 1.2 };
+    
+    println!("a = {}", a);          // a = 3.2 ± 0.2
+    println!("b = {}", b);          // b = 8.1 ± 1.2
+    println!("a / b = {}", a/b);    // a / b = 0.39506172839506176 ± 0.06352283488545864
+}
+```
+
