@@ -142,10 +142,10 @@ The following units can be used:
 - `Milliradian`
 
 
-### `units::Temeperatures`
+### `units::Temperatures`
 
 - `Celsius`
-- `Farenheit`
+- `Fahrenheit`
 - `Kelvin`
 
 
@@ -169,9 +169,37 @@ fn main() {
     let a = Measure { value: 3.2, error: 0.2 };
     let b = Measure { value: 8.1, error: 1.2 };
     
-    println!("a = {}", a);          // a = 3.2 ± 0.2
-    println!("b = {}", b);          // b = 8.1 ± 1.2
-    println!("a / b = {}", a/b);    // a / b = 0.39506172839506176 ± 0.06352283488545864
+    println!("a = {}", a);
+    println!("b = {}", b);
+    println!("a / b = {}", a/b);
 }
 ```
 
+```
+a = 3.2 ± 0.2
+b = 8.1 ± 1.2
+a / b = 0.39506172839506176 ± 0.06352283488545864
+```
+
+## Complex numbers
+
+A complex number type is also provided.
+
+``` rust
+use science_kit::complex::*;
+
+fn main() {
+    let a: Complex = Complex::new_from_cartesian(2.0, 1.0);
+    let b: Complex = Complex::new_from_polar(2.0, std::f64::consts::FRAC_PI_4);
+
+    println!("a = {}", a);
+    println!("b = {}", b);
+    println!("a + b = {}", a+b);
+}
+```
+
+```
+a = 2 + 1i
+b = 1.4142135623730951 + 1.414213562373095i
+a + b = 3.414213562373095 + 2.414213562373095i
+```
