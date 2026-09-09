@@ -1,4 +1,8 @@
-use std::{fmt, f64::consts::PI, ops::{Div, Mul, Neg}};
+use std::{
+    f64::consts::PI,
+    fmt,
+    ops::{Div, Mul, Neg},
+};
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Complex {
@@ -11,7 +15,7 @@ impl Complex {
     pub fn new_from_cartesian(real: f64, imaginary: f64) -> Self {
         Self {
             re: real,
-            im: imaginary
+            im: imaginary,
         }
     }
 
@@ -19,20 +23,26 @@ impl Complex {
     pub fn new_from_polar(r: f64, theta: f64) -> Self {
         Self {
             re: r * theta.cos(),
-            im: r * theta.sin()
+            im: r * theta.sin(),
         }
     }
 
-    /// The complex constant 0 + i0
-    const fn zero() -> Self { Self {re: 0.0, im: 0.0 } }
+    /// The complex constant 0 + 0i
+    const fn zero() -> Self {
+        Self { re: 0.0, im: 0.0 }
+    }
     pub const ZERO: Complex = Self::zero();
 
-    /// The complex constant 1 + i0
-    const fn one() -> Self { Self {re: 1.0, im: 0.0 } }
+    /// The complex constant 1 + 0i
+    const fn one() -> Self {
+        Self { re: 1.0, im: 0.0 }
+    }
     pub const ONE: Complex = Self::one();
 
     /// The complex constant i = √-1
-    const fn i() -> Self { Self {re: 0.0, im: 1.0 } }
+    const fn i() -> Self {
+        Self { re: 0.0, im: 1.0 }
+    }
     pub const I: Complex = Self::i();
 
     /// The magnitude of a complex number
@@ -55,7 +65,7 @@ impl Complex {
         let magnitude_squared: f64 = self.magnitude_squared();
         Self {
             re: self.re / magnitude_squared,
-            im: -self.im / magnitude_squared
+            im: -self.im / magnitude_squared,
         }
     }
 
@@ -63,7 +73,7 @@ impl Complex {
     pub fn conjugate(self) -> Self {
         Self {
             re: self.re,
-            im: -self.im
+            im: -self.im,
         }
     }
 
@@ -89,7 +99,7 @@ impl Complex {
     pub fn exp(self) -> Self {
         Self {
             re: self.re.exp() * self.im.cos(),
-            im: self.re.exp() * self.im.sin()
+            im: self.re.exp() * self.im.sin(),
         }
     }
 
@@ -97,7 +107,7 @@ impl Complex {
     pub fn ln(self) -> Self {
         Self {
             re: f64::ln(self.magnitude()),
-            im: self.argument()
+            im: self.argument(),
         }
     }
 
@@ -198,11 +208,11 @@ impl Complex {
     }
 
     pub fn asinh(self) -> Self {
-        (self + (self.powf(2.0) + 1.0).sqrt()).ln() 
+        (self + (self.powf(2.0) + 1.0).sqrt()).ln()
     }
 
     pub fn acosh(self) -> Self {
-        (self - (self.powf(2.0) - 1.0).sqrt()).ln() 
+        (self - (self.powf(2.0) - 1.0).sqrt()).ln()
     }
 
     pub fn atanh(self) -> Self {
@@ -223,10 +233,8 @@ impl Complex {
 }
 
 impl fmt::Display for Complex {
-
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{} + {}i", self.re, self.im)?;
         Ok(())
     }
-
 }

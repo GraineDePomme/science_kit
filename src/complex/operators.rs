@@ -1,5 +1,5 @@
-use crate::complex::Complex;
-use std::ops::{Add, Sub, Mul, Div, Neg};
+use crate::complex::complex::*;
+use std::ops::{Add, Div, Mul, Neg, Sub};
 
 /// (a+bi) + (c+di)
 impl Add for Complex {
@@ -30,7 +30,10 @@ impl Add<Complex> for f64 {
     type Output = Complex;
 
     fn add(self, rhs: Complex) -> Complex {
-        Complex { re: rhs.re + self, im: rhs.im }
+        Complex {
+            re: rhs.re + self,
+            im: rhs.im,
+        }
     }
 }
 
@@ -39,7 +42,10 @@ impl Sub for Complex {
     type Output = Self;
 
     fn sub(self, rhs: Self) -> Self {
-        Self { re: self.re - rhs.re, im: self.im - rhs.im }
+        Self {
+            re: self.re - rhs.re,
+            im: self.im - rhs.im,
+        }
     }
 }
 
@@ -48,7 +54,10 @@ impl Sub<f64> for Complex {
     type Output = Self;
 
     fn sub(self, rhs: f64) -> Self {
-        Self { re: self.re - rhs, im: self.im }
+        Self {
+            re: self.re - rhs,
+            im: self.im,
+        }
     }
 }
 
@@ -78,7 +87,10 @@ impl Mul<f64> for Complex {
     type Output = Self;
 
     fn mul(self, rhs: f64) -> Self {
-        Self { re: self.re * rhs, im: self.im * rhs }
+        Self {
+            re: self.re * rhs,
+            im: self.im * rhs,
+        }
     }
 }
 
@@ -86,7 +98,7 @@ impl Mul<f64> for Complex {
 impl Mul<Complex> for f64 {
     type Output = Complex;
 
-    fn mul(self, rhs: Complex) -> Complex{
+    fn mul(self, rhs: Complex) -> Complex {
         rhs * self
     }
 }
@@ -116,6 +128,7 @@ impl Div<f64> for Complex {
 }
 
 /// x / (a+bi)
+#[allow(clippy::suspicious_arithmetic_impl)]
 impl Div<Complex> for f64 {
     type Output = Complex;
 
