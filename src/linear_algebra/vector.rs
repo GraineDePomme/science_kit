@@ -598,11 +598,7 @@ impl Div for Vector {
             .map(|i| {
                 let left = self.components.get(i).copied().unwrap_or(0.0);
                 let right = rhs.components.get(i).copied().unwrap_or(0.0);
-                if right == 0.0 {
-                    0.0
-                } else {
-                    left / right
-                }
+                if right == 0.0 { 0.0 } else { left / right }
             })
             .collect();
 
@@ -622,11 +618,7 @@ impl Div for &Vector {
             .map(|i| {
                 let left = self.components.get(i).copied().unwrap_or(0.0);
                 let right = rhs.components.get(i).copied().unwrap_or(0.0);
-                if right == 0.0 {
-                    0.0
-                } else {
-                    left / right
-                }
+                if right == 0.0 { 0.0 } else { left / right }
             })
             .collect();
 
@@ -697,11 +689,7 @@ impl Div<Vector> for f64 {
         let result_components = (0..n)
             .map(|i| {
                 let right = rhs.components.get(i).copied().unwrap_or(0.0);
-                if right == 0.0 {
-                    0.0
-                } else {
-                    self / right
-                }
+                if right == 0.0 { 0.0 } else { self / right }
             })
             .collect();
         Vector {
@@ -718,11 +706,7 @@ impl Div<&Vector> for &f64 {
         let result_components = (0..n)
             .map(|i| {
                 let right = rhs.components.get(i).copied().unwrap_or(0.0);
-                if right == 0.0 {
-                    0.0
-                } else {
-                    self / right
-                }
+                if right == 0.0 { 0.0 } else { self / right }
             })
             .collect();
         Vector {
@@ -739,11 +723,7 @@ impl Div<Vector> for &f64 {
         let result_components = (0..n)
             .map(|i| {
                 let right = rhs.components.get(i).copied().unwrap_or(0.0);
-                if right == 0.0 {
-                    0.0
-                } else {
-                    self / right
-                }
+                if right == 0.0 { 0.0 } else { self / right }
             })
             .collect();
         Vector {
@@ -760,11 +740,7 @@ impl Div<&Vector> for f64 {
         let result_components = (0..n)
             .map(|i| {
                 let right = rhs.components.get(i).copied().unwrap_or(0.0);
-                if right == 0.0 {
-                    0.0
-                } else {
-                    self / right
-                }
+                if right == 0.0 { 0.0 } else { self / right }
             })
             .collect();
         Vector {

@@ -8,10 +8,7 @@ pub fn solve(a: &Matrix, v: &Vector) -> Result<Vector, String> {
     v_with_permutation.apply_permutation(lu.p.clone());
 
     // Forward substitution: Ly = Pb
-    let mut y = Vector::new_from_value(
-        0.0, 
-        a.rows
-    );
+    let mut y = Vector::new_from_value(0.0, a.rows);
 
     for row in 0..lu.l.rows {
         let mut sum = 0.0;
@@ -36,10 +33,7 @@ pub fn solve(a: &Matrix, v: &Vector) -> Result<Vector, String> {
             sum += lu.u.get(row, j) * result.get(j);
         }
 
-        result.set(
-            row,
-            (y.get(row) - sum) / lu.u.get(row, row),
-        );
+        result.set(row, (y.get(row) - sum) / lu.u.get(row, row));
     }
 
     Ok(result)

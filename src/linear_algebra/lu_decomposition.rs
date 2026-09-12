@@ -3,12 +3,10 @@ use crate::linear_algebra::*;
 pub struct LUDecomposition {
     pub l: Matrix,
     pub u: Matrix,
-    pub p: Vec<usize>
+    pub p: Vec<usize>,
 }
 
-
 impl Matrix {
-
     /// This function performs the LU decomposition of a square matrix.
     /// If successful, it returns a LUDecomposition type with the L and U matrices as well as a permutation vector P.
     pub fn lu_decomposition(&self) -> Result<LUDecomposition, String> {
@@ -56,9 +54,10 @@ impl Matrix {
             }
         }
 
-        Ok(LUDecomposition { l, u: result, p: permutations })
+        Ok(LUDecomposition {
+            l,
+            u: result,
+            p: permutations,
+        })
     }
-
 }
-
-

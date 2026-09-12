@@ -2,7 +2,6 @@ use std::f64::consts::PI;
 
 use crate::{linear_algebra::Vector, linear_space};
 
-
 fn gaussian_xs_ws(lower_bound: f64, upper_bound: f64, n: usize) -> (Vector, Vector) {
     // Initial approximation to roots of the Legendre polynomial
     let a: Vector = linear_space(3.0, 4.0 * n as f64 - 1.0, n) / (4.0 * n as f64 + 2.0);
@@ -45,7 +44,6 @@ fn gaussian_xs_ws(lower_bound: f64, upper_bound: f64, n: usize) -> (Vector, Vect
 
     (x, weights)
 }
-
 
 pub fn gaussian(f: fn(f64) -> f64, a: f64, b: f64, n: usize) -> f64 {
     let (xs, ws) = gaussian_xs_ws(a, b, n);

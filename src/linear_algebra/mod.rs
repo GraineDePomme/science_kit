@@ -13,19 +13,19 @@ pub use lu_decomposition::*;
 pub mod solve;
 pub use solve::*;
 
-
-
-
 #[cfg(test)]
 mod tests {
     use crate::linear_algebra::{Matrix, Vector, solve};
 
     #[test]
     fn simple_linear_solver_test() {
-        let a: Matrix = Matrix::new(vec![2.0, 1.0, 4.0, 1.0,
-                                                    3.0, 4.0, -1.0, -1.0,
-                                                    1.0, -4.0, 1.0, 5.0,
-                                                    2.0, -2.0, 1.0, 3.0], 4, 4);
+        let a: Matrix = Matrix::new(
+            vec![
+                2.0, 1.0, 4.0, 1.0, 3.0, 4.0, -1.0, -1.0, 1.0, -4.0, 1.0, 5.0, 2.0, -2.0, 1.0, 3.0,
+            ],
+            4,
+            4,
+        );
 
         let _lu = a.lu_decomposition().unwrap();
 

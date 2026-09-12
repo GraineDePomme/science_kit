@@ -1,4 +1,7 @@
-use std::{fmt, ops::{Add, Div, Mul, Neg, Sub}};
+use std::{
+    fmt,
+    ops::{Add, Div, Mul, Neg, Sub},
+};
 
 use crate::linear_algebra::Vector;
 
@@ -6,7 +9,7 @@ use crate::linear_algebra::Vector;
 pub struct Matrix {
     pub components: Vec<f64>,
     pub rows: usize,
-    pub cols: usize
+    pub cols: usize,
 }
 
 impl Matrix {
@@ -14,7 +17,11 @@ impl Matrix {
         if rows == 0 || cols == 0 || components.len() != rows * cols {
             panic!("Incompatible matrix dimensions");
         }
-        Matrix { components, rows, cols }
+        Matrix {
+            components,
+            rows,
+            cols,
+        }
     }
 
     pub fn new_from_value(value: f64, rows: usize, cols: usize) -> Self {
@@ -24,7 +31,9 @@ impl Matrix {
 
     /// Returns a new matrix with random components from -1 to 1
     pub fn new_random(rows: usize, cols: usize) -> Self {
-        let components: Vec<f64> = (0..rows * cols).map(|_| rand::random::<f64>() * 2.0 - 1.0).collect();
+        let components: Vec<f64> = (0..rows * cols)
+            .map(|_| rand::random::<f64>() * 2.0 - 1.0)
+            .collect();
         Matrix::new(components, rows, cols)
     }
 
@@ -88,7 +97,8 @@ impl Matrix {
             panic!("Row index out of bounds");
         }
         for column in 0..self.cols {
-            self.components.swap(row1 * self.cols + column, row2 * self.cols + column);
+            self.components
+                .swap(row1 * self.cols + column, row2 * self.cols + column);
         }
     }
 
@@ -101,7 +111,7 @@ impl Matrix {
 
     // Apply row permutations as provided by a permutation vector
     pub fn apply_row_permutation(&self, permutations: Vec<usize>) -> Matrix {
-    let mut result = Matrix::new_from_value(0.0, self.rows, self.cols);
+        let mut result = Matrix::new_from_value(0.0, self.rows, self.cols);
 
         for (i, &j) in permutations.iter().enumerate() {
             for col in 0..self.cols {
@@ -155,7 +165,10 @@ impl Matrix {
             panic!("Row index out of bounds");
         }
         for col in 0..self.cols {
-            *self.components.get_mut(target_row * self.cols + col).unwrap() += scalar * self.get(source_row, col);
+            *self
+                .components
+                .get_mut(target_row * self.cols + col)
+                .unwrap() += scalar * self.get(source_row, col);
         }
     }
 
@@ -274,7 +287,7 @@ impl Matrix {
             tmp = alpha * x.get(row);
             for col in 0..self.cols {
                 self.components[row * self.cols + col] += y.get(col) * tmp;
-            } 
+            }
         }
     }
 }
@@ -287,8 +300,17 @@ impl Add for Matrix {
         if self.rows != rhs.rows || self.cols != rhs.cols {
             panic!("Incompatible matrix dimensions for addition!");
         }
-        let components = self.components.iter().zip(rhs.components.iter()).map(|(a, b)| a + b).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        let components = self
+            .components
+            .iter()
+            .zip(rhs.components.iter())
+            .map(|(a, b)| a + b)
+            .collect();
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -299,8 +321,17 @@ impl Add for &Matrix {
         if self.rows != rhs.rows || self.cols != rhs.cols {
             panic!("Incompatible matrix dimensions for addition!");
         }
-        let components = self.components.iter().zip(rhs.components.iter()).map(|(a, b)| a + b).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        let components = self
+            .components
+            .iter()
+            .zip(rhs.components.iter())
+            .map(|(a, b)| a + b)
+            .collect();
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -310,7 +341,11 @@ impl Add<f64> for Matrix {
 
     fn add(self, scalar: f64) -> Self {
         let components = self.components.iter().map(|x| x + scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -319,7 +354,11 @@ impl Add<&f64> for &Matrix {
 
     fn add(self, scalar: &f64) -> Matrix {
         let components = self.components.iter().map(|x| x + scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -328,7 +367,11 @@ impl Add<&f64> for Matrix {
 
     fn add(self, scalar: &f64) -> Matrix {
         let components = self.components.iter().map(|x| x + scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -337,7 +380,11 @@ impl Add<f64> for &Matrix {
 
     fn add(self, scalar: f64) -> Matrix {
         let components = self.components.iter().map(|x| x + scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -382,8 +429,17 @@ impl Sub for Matrix {
         if self.rows != rhs.rows || self.cols != rhs.cols {
             panic!("Incompatible matrix dimensions for subtraction!");
         }
-        let components = self.components.iter().zip(rhs.components.iter()).map(|(a, b)| a - b).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        let components = self
+            .components
+            .iter()
+            .zip(rhs.components.iter())
+            .map(|(a, b)| a - b)
+            .collect();
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -394,8 +450,17 @@ impl Sub for &Matrix {
         if self.rows != rhs.rows || self.cols != rhs.cols {
             panic!("Incompatible matrix dimensions for subtraction!");
         }
-        let components = self.components.iter().zip(rhs.components.iter()).map(|(a, b)| a - b).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        let components = self
+            .components
+            .iter()
+            .zip(rhs.components.iter())
+            .map(|(a, b)| a - b)
+            .collect();
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -405,7 +470,11 @@ impl Sub<f64> for Matrix {
 
     fn sub(self, scalar: f64) -> Self {
         let components = self.components.iter().map(|x| x - scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -414,7 +483,11 @@ impl Sub<&f64> for &Matrix {
 
     fn sub(self, scalar: &f64) -> Matrix {
         let components = self.components.iter().map(|x| x - scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -423,7 +496,11 @@ impl Sub<&f64> for Matrix {
 
     fn sub(self, scalar: &f64) -> Matrix {
         let components = self.components.iter().map(|x| x - scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -432,7 +509,11 @@ impl Sub<f64> for &Matrix {
 
     fn sub(self, scalar: f64) -> Matrix {
         let components = self.components.iter().map(|x| x - scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -442,7 +523,11 @@ impl Sub<Matrix> for f64 {
 
     fn sub(self, matrix: Matrix) -> Matrix {
         let components = matrix.components.iter().map(|x| self - x).collect();
-        Matrix { components, rows: matrix.rows, cols: matrix.cols }
+        Matrix {
+            components,
+            rows: matrix.rows,
+            cols: matrix.cols,
+        }
     }
 }
 
@@ -451,7 +536,11 @@ impl Sub<&Matrix> for &f64 {
 
     fn sub(self, matrix: &Matrix) -> Matrix {
         let components = matrix.components.iter().map(|x| self - x).collect();
-        Matrix { components, rows: matrix.rows, cols: matrix.cols }
+        Matrix {
+            components,
+            rows: matrix.rows,
+            cols: matrix.cols,
+        }
     }
 }
 
@@ -460,7 +549,11 @@ impl Sub<Matrix> for &f64 {
 
     fn sub(self, matrix: Matrix) -> Matrix {
         let components = matrix.components.iter().map(|x| self - x).collect();
-        Matrix { components, rows: matrix.rows, cols: matrix.cols }
+        Matrix {
+            components,
+            rows: matrix.rows,
+            cols: matrix.cols,
+        }
     }
 }
 
@@ -469,7 +562,11 @@ impl Sub<&Matrix> for f64 {
 
     fn sub(self, matrix: &Matrix) -> Matrix {
         let components = matrix.components.iter().map(|x| self - x).collect();
-        Matrix { components, rows: matrix.rows, cols: matrix.cols }
+        Matrix {
+            components,
+            rows: matrix.rows,
+            cols: matrix.cols,
+        }
     }
 }
 
@@ -493,7 +590,11 @@ impl Mul for Matrix {
                 }
             }
         }
-        Matrix { components: new_components, rows: self.rows, cols: rhs.cols }
+        Matrix {
+            components: new_components,
+            rows: self.rows,
+            cols: rhs.cols,
+        }
     }
 }
 
@@ -509,9 +610,9 @@ impl Mul for &Matrix {
 
         let mut sum: f64;
         for i in 0..self.rows {
-            for j in 0..rhs.cols { 
+            for j in 0..rhs.cols {
                 sum = 0.0;
-                
+
                 for k in 0..self.cols {
                     sum += self.get(i, k) * rhs.get(k, j);
                 }
@@ -519,7 +620,11 @@ impl Mul for &Matrix {
                 new_components[i * rhs.cols + j] = sum;
             }
         }
-        Matrix { components: new_components, rows: self.rows, cols: rhs.cols }
+        Matrix {
+            components: new_components,
+            rows: self.rows,
+            cols: rhs.cols,
+        }
     }
 }
 
@@ -529,7 +634,11 @@ impl Mul<f64> for Matrix {
 
     fn mul(self, scalar: f64) -> Self {
         let components = self.components.iter().map(|x| x * scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -538,7 +647,11 @@ impl Mul<&f64> for &Matrix {
 
     fn mul(self, scalar: &f64) -> Matrix {
         let components = self.components.iter().map(|x| x * scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -547,7 +660,11 @@ impl Mul<f64> for &Matrix {
 
     fn mul(self, scalar: f64) -> Matrix {
         let components = self.components.iter().map(|x| x * scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -556,7 +673,11 @@ impl Mul<&f64> for Matrix {
 
     fn mul(self, scalar: &f64) -> Matrix {
         let components = self.components.iter().map(|x| x * scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -599,7 +720,11 @@ impl Div<f64> for Matrix {
 
     fn div(self, scalar: f64) -> Self {
         let components = self.components.iter().map(|x| x / scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -608,7 +733,11 @@ impl Div<&f64> for &Matrix {
 
     fn div(self, scalar: &f64) -> Matrix {
         let components = self.components.iter().map(|x| x / scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -617,7 +746,11 @@ impl Div<f64> for &Matrix {
 
     fn div(self, scalar: f64) -> Matrix {
         let components = self.components.iter().map(|x| x / scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -626,7 +759,11 @@ impl Div<&f64> for Matrix {
 
     fn div(self, scalar: &f64) -> Matrix {
         let components = self.components.iter().map(|x| x / scalar).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -636,7 +773,11 @@ impl Neg for Matrix {
 
     fn neg(self) -> Self {
         let components = self.components.iter().map(|x| -x).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
@@ -645,7 +786,11 @@ impl Neg for &Matrix {
 
     fn neg(self) -> Matrix {
         let components = self.components.iter().map(|x| -x).collect();
-        Matrix { components, rows: self.rows, cols: self.cols }
+        Matrix {
+            components,
+            rows: self.rows,
+            cols: self.cols,
+        }
     }
 }
 
