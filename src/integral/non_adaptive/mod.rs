@@ -4,6 +4,9 @@ pub use trapezoidal::*;
 pub mod simpson;
 pub use simpson::*;
 
+pub mod gaussian;
+pub use gaussian::*;
+
 #[cfg(test)]
 mod trapezoidal_rule {
 
@@ -34,6 +37,23 @@ mod simpson_rule {
         assert!(
             (result.value - 4.4).abs() <= 0.001 && (result.value - 4.4).abs() <= result.error,
             "Trapezoidal integral gives wrong result!"
+        );
+    }
+}
+
+#[cfg(test)]
+mod gaussian_integral {
+
+    use crate::integral;
+
+    #[test]
+    fn simple_integral() {
+        let f = |x: f64| -> f64 { x.powi(4) - 2.0 * x + 1.0 };
+        let result: f64 = integral::non_adaptive::gaussian(f, 0.0, 2.0, 10);
+        println!("{result}");
+        assert!(
+            (result - 4.4).abs() <= 0.0000001,
+            "Gaussian integral gives wrong result!"
         );
     }
 }
